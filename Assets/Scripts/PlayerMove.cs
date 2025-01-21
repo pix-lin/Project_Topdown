@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
@@ -6,15 +7,15 @@ public class PlayerMove : MonoBehaviour
 
     float h;
     float v;
-    bool hDown, hUp;
-    bool vDown, vUp;
-    bool hEnter, vEnter;
-    bool isWalking;
+    //bool hDown, hUp;
+    //bool vDown, vUp;
+    //bool hEnter, vEnter;
+    //bool isWalking;
 
     Rigidbody2D rigid;
     Animator anime;
 
-    Vector2 lastDirec;
+    Vector2 lastDirec = Vector2.zero;
 
     //AnimatorStateInfo animeInfo;
 
@@ -37,12 +38,39 @@ public class PlayerMove : MonoBehaviour
         rigid.linearVelocity = new Vector2(h, v) * walkMaxSpeed;
 
         //Scan Raycast
-        Debug.DrawRay(rigid.position, lastDirec, new Color(0, 1, 0));
-        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, lastDirec, 1);
+        Debug.DrawRay(rigid.position, lastDirec * 0.65f, new Color(1, 0, 0));
+        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, lastDirec, 0.65f, LayerMask.GetMask("Door"));
 
-        if (rayHit != null)
+        if (rayHit.collider != null)
         {
-
+            switch(rayHit.collider.tag)
+            {
+                case "Up":
+                    {
+                        //Scene 로딩 함수
+                        Debug.Log("Up Door");
+                        break;
+                    }
+                case "Down":
+                    {
+                        //Scene 로딩 함수
+                        Debug.Log("Down Door");
+                        break;
+                    }
+                case "Left":
+                    {
+                        //Scene 로딩 함수
+                        Debug.Log("Left Door");
+                        break;
+                    }
+                case "Right": //Default
+                    {
+                        //Scene 로딩 함수
+                        Debug.Log("Right Door");
+                        break;
+                    }
+            }
+            
         }
 
     }
@@ -54,12 +82,12 @@ public class PlayerMove : MonoBehaviour
         v = Input.GetAxisRaw("Vertical");
 
         //Check Button Up&Down
-        hDown = Input.GetButtonDown("Horizontal");
-        vDown = Input.GetButtonDown("Vertical");
-        hUp = Input.GetButtonUp("Horizontal");
-        vUp = Input.GetButtonUp("Vertical");
-        hEnter = Input.GetButton("Horizontal");
-        vEnter = Input.GetButton("Vertical");
+        //hDown = Input.GetButtonDown("Horizontal");
+        //vDown = Input.GetButtonDown("Vertical");
+        //hUp = Input.GetButtonUp("Horizontal");
+        //vUp = Input.GetButtonUp("Vertical");
+        //hEnter = Input.GetButton("Horizontal");
+        //vEnter = Input.GetButton("Vertical");
 
         //Idle, Walk Animation
         //Send a signal to the transition only Once
