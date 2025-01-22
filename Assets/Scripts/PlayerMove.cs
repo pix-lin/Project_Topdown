@@ -7,10 +7,6 @@ public class PlayerMove : MonoBehaviour
 
     float h;
     float v;
-    //bool hDown, hUp;
-    //bool vDown, vUp;
-    //bool hEnter, vEnter;
-    //bool isWalking;
 
     Rigidbody2D rigid;
     Animator anime;
@@ -27,13 +23,6 @@ public class PlayerMove : MonoBehaviour
 
     private void FixedUpdate()
     {
-        /*
-        Don't use AddForce() Func. Because it makes to move continue. (add acceleration)
-        rigid.AddForce(new Vector2(h, v), ForceMode2D.Impulse);
-        if (Input.GetButtonUp("Horizontal") || Input.GetButtonUp("Vertical"))
-            rigid.linearVelocity = Vector2.zero;
-        */
-
         //Move to horizontal / vertical by button
         rigid.linearVelocity = new Vector2(h, v) * walkMaxSpeed;
 
@@ -80,14 +69,6 @@ public class PlayerMove : MonoBehaviour
         //Get Move Button Sign
         h = Input.GetAxisRaw("Horizontal");
         v = Input.GetAxisRaw("Vertical");
-
-        //Check Button Up&Down
-        //hDown = Input.GetButtonDown("Horizontal");
-        //vDown = Input.GetButtonDown("Vertical");
-        //hUp = Input.GetButtonUp("Horizontal");
-        //vUp = Input.GetButtonUp("Vertical");
-        //hEnter = Input.GetButton("Horizontal");
-        //vEnter = Input.GetButton("Vertical");
 
         //Idle, Walk Animation
         //Send a signal to the transition only Once
